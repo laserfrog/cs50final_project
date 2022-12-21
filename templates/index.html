@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+I like cheese.
+{{ response }}
+{{ game }}
+<form action="/search" method="get">
+    <input autocomplete="off" name="search" placeholder="Search">
+    <button type="submit">Submit</button>
+
+</form>
+{% endblock %}

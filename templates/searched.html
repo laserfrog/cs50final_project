@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Game to add
+{% endblock %}
+
+{% block main %}
+
+{{ response }}
+<div class="main">
+    <div class="serv">
+        <ul>
+            {% for res in response %}
+            <li><img src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art"><br> {{ res["name"] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+<!--<table>
+    <thead>
+        <tr>
+            <th>Games!</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for res in response %}
+        <tr>
+            <td>{{ res["name"] }}</td>
+            <td><img src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+->
