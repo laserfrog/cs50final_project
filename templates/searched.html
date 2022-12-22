@@ -5,20 +5,33 @@ Game to add
 {% endblock %}
 
 {% block main %}
-
-{{ response }}
+<div class="search">
+    <form action="/search" method="get">
+        <input autocomplete="off" name="search" placeholder="Search">
+        <button type="submit">Submit</button>
+</div>
+</form>
 <div class="main">
+
     <div class="serv">
         <ul>
             {% for res in response %}
-            <li><img src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art"><br> {{ res["name"] }}</li>
+            <div class="container">
+                <li><img src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art" class="image">
+                    <div class="overlay">
+                        <a href="#" class="icon" title="User Profile">
+                            <i class="fa fa-user"></i>
+                        </a> <br> {{ res["name"] }}
+                    </div>
+                </li>
+            </div>
             {% endfor %}
         </ul>
-    </div>
-</div>
-{% endblock %}
 
-<!--<table>
+    </div>
+    {% endblock %}
+
+    <!--<table>
     <thead>
         <tr>
             <th>Games!</th>

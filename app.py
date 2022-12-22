@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 import json
 import requests
@@ -65,3 +65,43 @@ def register():
                 return render_template("register.html", confirm=return_string)
     else:
         return render_template("register.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """ Logs the user in"""
+
+    # Forget user id
+    session.clear()
+
+    if request.method == "POST":
+
+        if not request.form.get("username"):
+            error = "Must provide username"
+            return render_template("error.html", error=error)
+
+        elif not request.form.get("password"):
+            error = "Must provide password"
+            return render_template("error.html", error=error)
+
+        rows = db.execute(
+            "SELECT * FROM user_login WHERE username = ?", request.form.get("username"))
+
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+            error = "Invalid username or password"
+            return render_template("error.html", error=error)
+
+        session["user_id"] = rows[0]["id"]
+
+        return redirect("/")
+    else:
+        return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    "Log me out"
+
+    session.clear()
+
+    return redirect("/")
