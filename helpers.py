@@ -20,6 +20,8 @@ def game_lookup(name):
     game_list = []
     for i in range(len(results)):
 
+        id = i
+
         result_loop = results[i]
         game_name = result_loop["name"]
         box_art = result_loop["image"]
@@ -34,6 +36,7 @@ def game_lookup(name):
             pass
 
         game_dict = {
+            "id": id,
             "name": game_name,
             "box_art": box_art["thumb_url"],
             "deck": result_loop["deck"],

@@ -5,6 +5,7 @@ Game to add
 {% endblock %}
 
 {% block main %}
+{{ response }}
 <div class="search">
     <form action="/search" method="get">
         <input autocomplete="off" name="search" placeholder="Search">
@@ -25,6 +26,10 @@ Game to add
                     </div>
                 </li>
             </div>
+            <form action="/add_game" method="post">
+                <input name="id" type="hidden" value="{{ response[res['id']] }}">
+                <input type="submit" value="Add game">
+            </form>
             {% endfor %}
         </ul>
 

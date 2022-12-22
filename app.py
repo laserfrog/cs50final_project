@@ -105,3 +105,13 @@ def logout():
     session.clear()
 
     return redirect("/")
+
+
+@app.route("/add_game", methods=["GET", "POST"])
+def add_game():
+    """ Adds the game."""
+
+    if request.method == "POST":
+        game = request.form.get("id")
+
+        return render_template("add_game.html", game=game)
