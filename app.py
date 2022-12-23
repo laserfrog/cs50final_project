@@ -6,7 +6,8 @@ import sys
 from helpers import game_lookup
 from cs50 import SQL
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from howlongtobeatpy import HowLongToBeat
+import ast
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -113,5 +114,15 @@ def add_game():
 
     if request.method == "POST":
         game = request.form.get("id")
+        game = ast.literal_eval(game)
+        game_name = game["name"]
+        results = HowLongToBeat().search(game_name, similarity_case_sensitive=False)
+        if results:
+            results = results[0]
+            results = results.main_story
+            game["how_long"] = results
+        else:
+            results = None
+        print(type(results), sys.stdout)
 
-        return render_template("add_game.html", game=game)
+        return render_template("add_game.html", game=game, howlong=results)
