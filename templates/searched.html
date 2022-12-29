@@ -17,19 +17,15 @@ Game to add
     <div class="serv">
         <ul>
             {% for res in response %}
-            <div class="container">
-                <li><img src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art" class="image">
-                    <div class="overlay">
-                        <a href="#" class="icon" title="User Profile">
-                            <i class="fa fa-user"></i>
-                        </a> <br> {{ res["name"] }}
-                    </div>
-                </li>
-            </div>
-            <form action="/add_game" method="post">
+
+            <form class="container" action="/add_game" method="post">
                 <input name="id" type="hidden" value="{{ response[res['id']] }}">
-                <input type="submit" value="Add game">
+                <input type="image" src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art" value=" Add game">
+                <br>
+                <h3 class="game-title"> {{ res["name"] }}</h3>
             </form>
+
+
             {% endfor %}
         </ul>
 

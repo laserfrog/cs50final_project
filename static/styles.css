@@ -9,6 +9,11 @@
     flex: 0 0 33.333333%;
 }
 
+.game-title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
 .search {
     display: flex;
     align-items: center;
