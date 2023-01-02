@@ -110,7 +110,7 @@ def logout():
 
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
-    """ Adds the game."""
+    """ Looks at the game to be added."""
 
     if request.method == "POST":
         game = request.form.get("id")
@@ -126,3 +126,16 @@ def add_game():
         print(type(results), sys.stdout)
 
         return render_template("add_game.html", game=game, howlong=results)
+
+
+@app.route("/game_added", methods=["GET", "POST"])
+def game_added():
+    """ Adss game to database."""
+    if request.method == "POST":
+        game = request.form.get("game")
+        game = ast.literal_eval(game)
+
+        platforms = request.form.getlist('mycheckbox')
+        game["platforms"] = platforms
+
+        return render_template("game_added.html", game=game, platforms=platforms)
