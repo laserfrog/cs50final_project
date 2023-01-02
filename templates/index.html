@@ -6,11 +6,10 @@ Home
 
 {% block main %}
 <div class="main">
-    I like cheese.
-    {{ response }}
-    {{ game }}
-    <form action="/search" method="get">
-        <input class="search" autocomplete="off" name="search" placeholder="Search">
+    <img class="logo" src="/static/videogamedatabase.png" alt="logo">
+
+    <form class="search-form" action="/search" method="get">
+        <input type="search" class="search" autocomplete="off" name="search" placeholder="Search">
         <button type="submit">Submit</button>
 
     </form>

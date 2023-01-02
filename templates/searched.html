@@ -5,34 +5,38 @@ Game to add
 {% endblock %}
 
 {% block main %}
-
-<div class="search">
-    <form action="/search" method="get">
-        <input autocomplete="off" name="search" placeholder="Search">
-        <button type="submit">Submit</button>
-</div>
-</form>
-<div class="main">
-
-    <div class="serv">
-        <ul>
-            {% for res in response %}
-
-            <form class="container" action="/add_game" method="post">
-                <input name="id" type="hidden" value="{{ response[res['id']] }}">
-                <input type="image" src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art" value=" Add game">
-                <br>
-                <h3 class="game-title"> {{ res["name"] }}</h3>
-            </form>
-
-
-            {% endfor %}
-        </ul>
-
+<main class="main">
+    <div class="searched">
+        <form class="search-form" action="/search" method="get">
+            <input type="search" class="search" autocomplete="off" name="search" placeholder="Search">
+            <button type="submit">Submit</button>
     </div>
-    {% endblock %}
+    </form>
 
-    <!--<table>
+    <div class="main">
+
+        <div class="serv">
+            <ul class="gamelist">
+                {% for res in response %}
+
+                <form class="container" action="/add_game" method="post">
+                    <input name="id" type="hidden" value="{{ response[res['id']] }}">
+                    <input type="image" class="game-title" src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art"
+                        value=" Add game">
+                    <br>
+                    <h3 class="game-title"> {{ res["name"] }}</h3>
+                </form>
+
+
+                {% endfor %}
+            </ul>
+
+        </div>
+</main>
+
+{% endblock %}
+
+<!--<table>
     <thead>
         <tr>
             <th>Games!</th>
