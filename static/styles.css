@@ -15,18 +15,19 @@
 }
 
 .search {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 25px;
+    justify-content: center; */
+    padding: 10px;
+    border-radius: 25px;
 }
 
-input {
+/* input {
     width: 100%;
     padding: 12px 12px;
     margin: 8px 0;
     box-sizing: border-box;
-}
+} */
 
 .main {
     display: flex;
