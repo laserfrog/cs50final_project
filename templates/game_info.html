@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Game Info
+{% endblock %}
+
+{% block main %}
+{{ game }}
+<form action="/game_removed" method="post">
+    <h1>Game: {{ game["name"] }}</h1>
+    <h2>Released: {{ game["release_date"] }}</h2>
+    <img class="container2" src="{{ game['box_art']}}" alt="{{ game['name'] }} box art">
+    <div class="deck">{{ game["deck"] }}</div>
+    <input name="game" type="hidden" value="{{ game['id'] }}">
+    <div class="platforms">
+
+        {{ game['platforms'].replace('_', ' ') }}
+
+        <input type="submit" value="Remove game" />
+    </div>
+</form>
+
+{% endblock %}

@@ -138,4 +138,44 @@ def game_added():
         platforms = request.form.getlist('mycheckbox')
         game["platforms"] = platforms
 
-        return render_template("game_added.html", game=game, platforms=platforms)
+        platformsstring = ''
+        for x in platforms:
+            platformsstring += '_' + x
+        platformsstring += '_'
+        if not session.get("user_id"):
+            return redirect("/login")
+        user_id = session.get("user_id")
+        db.execute(
+            "INSERT INTO game_database (user_id, game_name, box_art, deck, release_date, platforms, url, how_long) VALUES(?, ?, ? ,?, ?, ?, ?, ?)", user_id, game["name"], game["box_art"], game["deck"], game["release_date"], platformsstring, game["api_detail_url"], game["how_long"])
+        message = "Game added!"
+        return render_template("game_added.html", message=message)
+
+
+@app.route("/game_database", methods=["GET", "POST"])
+def game_database():
+    """Shows your database of games."""
+    if request.method == "POST":
+        pass
+    else:
+        rows = db.execute(
+            "SELECT * FROM game_database WHERE user_id = ?", session.get("user_id"))
+        return render_template("game_database.html", rows=rows)
+
+
+@app.route("/game_info", methods=["GET", "POST"])
+def game_info():
+    """Shows info on your game and lets to delete it from the database."""
+    if request.method == "POST":
+        game_id = request.form.get('id')
+        game = ast.literal_eval(game_id)
+        return render_template("game_info.html", game=game)
+
+
+@app.route("/game_removed", methods=["GET", "POST"])
+def game_removed():
+    """Removes game from database."""
+    if request.method == "POST":
+        id = request.form.get('game')
+        print(id, sys.stdout)
+        db.execute("DELETE FROM game_database WHERE id = ?", id)
+        return redirect("/game_database")
