@@ -5,31 +5,27 @@ Your database
 {% endblock %}
 
 {% block main %}
-<ul>
-    {% for row in rows %}
-    {{ row }}
-    {{ row["game_name"] }}
-    {% endfor %}
-
-    <div class="serv">
-        <ul class="gamelist">
-            {% for row in rows %}
-
-            <form class="container" action="/game_info" method="post">
-                <input name="id" type="hidden" value="{{ row }}">
-                <input type="image" class="game-title" src="{{ row['box_art'] }}" alt="{{ row['name'] }} box art"
-                    value=" Look at game">
-                <br>
-                <h3 class="game-title"> {{ row["game_name"] }}</h3>
-            </form>
 
 
-            {% endfor %}
-        </ul>
+<div class="serv">
+    <ul class="gamelist">
+        {% for row in rows %}
 
-    </div>
+        <form class="container" action="/game_info" method="post">
+            <input name="id" type="hidden" value="{{ row }}">
+            <input type="image" class="game-title" src="{{ row['box_art'] }}" alt="{{ row['name'] }} box art"
+                value=" Look at game">
+            <br>
+            <h3 class="game-title"> {{ row["game_name"] }}</h3>
+        </form>
 
-</ul>
+
+        {% endfor %}
+    </ul>
+
+</div>
+
+
 
 
 {% endblock %}
