@@ -5,19 +5,26 @@ Game Info
 {% endblock %}
 
 {% block main %}
-{{ game }}
-<form action="/game_removed" method="post">
-    <h1>Game: {{ game["name"] }}</h1>
-    <h2>Released: {{ game["release_date"] }}</h2>
-    <img class="container2" src="{{ game['box_art']}}" alt="{{ game['name'] }} box art">
-    <div class="deck">{{ game["deck"] }}</div>
-    <input name="game" type="hidden" value="{{ game['id'] }}">
-    <div class="platforms">
 
-        {{ game['platforms'].replace('_', ' ') }}
+<div class="container-xl">
+    <form class="form-looks" action="/game_removed" method="post">
+        <h4>Game: {{ game["game_name"] }}</h4>
+        <h5>Released: {{ game["release_date"] }}</h5>
+        <div class="game-info">
+            <img class="container2" src="{{ game['box_art']}}" alt="{{ game['name'] }} box art">
+            <div class="deck">{{ game["deck"] }}
+                <div class="platforms">
 
-        <input type="submit" value="Remove game" />
-    </div>
-</form>
+                    {{ game['platforms'].replace('_', ' ') }}
+
+
+                </div>
+                <input type="submit" value="Remove game" />
+            </div>
+            <input name="game" type="hidden" value="{{ game['id'] }}">
+
+        </div>
+    </form>
+</div>
 
 {% endblock %}

@@ -86,7 +86,7 @@
 }
 
 /* Container needed to position the overlay. Adjust the width as needed */
-.container {
+.container_leo {
     position: relative;
     width: 100%;
     max-width: 200px;
@@ -130,7 +130,7 @@
     color: #eee;
 } */
 
-.container:hover {
+.container_leo:hover {
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
@@ -142,6 +142,13 @@
     display: flex;
     padding: 0px;
     margin: 0 0 30px;
+}
+
+.data-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
 }
 
 /* input[type="search"] {
@@ -169,7 +176,11 @@ input[type="search"]::placeholder {
     color: #bbb;
 }
 
-button[type="submit"] {
+.login-form {
+    padding-top: 20px;
+}
+
+.search-button {
     text-indent: -999px;
     overflow: hidden;
     width: 40px;
@@ -182,12 +193,12 @@ button[type="submit"] {
     opacity: 0.7;
 }
 
-button[type="submit"]:hover {
+.search-button:hover {
     opacity: 1;
 }
 
 .logo {
-    width: 30%;
+    width: 20%;
     padding: 50px;
 }
 
@@ -200,6 +211,24 @@ button[type="submit"]:hover {
 
 }
 
+.game-info {
+    display: flex;
+    padding: 2px;
+}
+
+.deck {
+    padding-left: 10px;
+}
+
 .searched {
     padding-top: 40px;
+}
+
+.platforms {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-looks {
+    padding-top: 50px;
 }

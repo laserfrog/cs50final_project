@@ -8,6 +8,7 @@ from cs50 import SQL
 from werkzeug.security import check_password_hash, generate_password_hash
 from howlongtobeatpy import HowLongToBeat
 import ast
+from datetime import date
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -122,7 +123,8 @@ def add_game():
             results = results.main_story
             game["how_long"] = results
         else:
-            results = None
+            results = 0
+            game["how_long"] = results
         print(type(results), sys.stdout)
 
         return render_template("add_game.html", game=game, howlong=results)
@@ -148,18 +150,42 @@ def game_added():
         db.execute(
             "INSERT INTO game_database (user_id, game_name, box_art, deck, release_date, platforms, url, how_long) VALUES(?, ?, ? ,?, ?, ?, ?, ?)", user_id, game["name"], game["box_art"], game["deck"], game["release_date"], platformsstring, game["api_detail_url"], game["how_long"])
         message = "Game added!"
-        return render_template("game_added.html", message=message)
+        return redirect("/game_database")
 
 
 @app.route("/game_database", methods=["GET", "POST"])
 def game_database():
     """Shows your database of games."""
+    current_year = date.today().year
+    assend = ["ASC", "DESC"]
     if request.method == "POST":
-        pass
+        asc = request.form.get('ascend')
+        platform = request.form.get('platform')
+        year = request.form.get('year')
+        if asc not in assend:
+            error = "SQL injection"
+            return render_template("error.html", error=error)
+        elif platform and year:
+            platform = '%' + platform + '%'
+            rows = db.execute(
+                f"SELECT * FROM game_database WHERE user_id = ? AND platforms LIKE ? AND strftime('%Y', release_date) = ? ORDER BY game_name {asc}", session.get("user_id"), platform, year)
+        elif platform:
+            platform = '%' + platform + '%'
+            rows = db.execute(
+                f"SELECT * FROM game_database WHERE user_id = ? AND platforms LIKE ? ORDER BY game_name {asc}", session.get("user_id"), platform)
+        elif year:
+            rows = db.execute(
+                f"SELECT * FROM game_database WHERE user_id = ? AND strftime('%Y', release_date) = ? ORDER BY game_name {asc}", session.get("user_id"), year)
+        else:
+            rows = db.execute(
+                f"SELECT * FROM game_database WHERE user_id = ? ORDER BY game_name {asc}", session.get("user_id"))
+            print(
+                f"It IS {asc} the platform {platform} and year {year}", sys.stdout)
+        return render_template("game_database.html", rows=rows, year=current_year, assend=assend)
     else:
         rows = db.execute(
             "SELECT * FROM game_database WHERE user_id = ?", session.get("user_id"))
-        return render_template("game_database.html", rows=rows)
+        return render_template("game_database.html", rows=rows, year=current_year, assend=assend)
 
 
 @app.route("/game_info", methods=["GET", "POST"])

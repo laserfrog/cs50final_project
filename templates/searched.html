@@ -9,7 +9,7 @@ Game to add
     <div class="searched">
         <form class="search-form" action="/search" method="get">
             <input type="search" class="search" autocomplete="off" name="search" placeholder="Search">
-            <button type="submit">Submit</button>
+            <button type="submit" class="search-button">Submit</button>
     </div>
     </form>
 
@@ -19,7 +19,7 @@ Game to add
             <ul class="gamelist">
                 {% for res in response %}
 
-                <form class="container" action="/add_game" method="post">
+                <form class="container_leo" action="/add_game" method="post">
                     <input name="id" type="hidden" value="{{ response[res['id']] }}">
                     <input type="image" class="game-title" src="{{ res['box_art'] }}" alt="{{ res['name'] }} box art"
                         value=" Add game">
@@ -32,9 +32,15 @@ Game to add
             </ul>
 
         </div>
+        {% block script %} {% endblock %}
 </main>
+{% block add_game %}
+{% endblock %}
+
 
 {% endblock %}
+
+
 
 <!--<table>
     <thead>

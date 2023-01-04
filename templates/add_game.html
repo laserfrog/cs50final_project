@@ -5,20 +5,30 @@ Add Game
 {% endblock %}
 
 {% block main %}
-{{ game }}
-{{ howlong }}
-<form action="/game_added" method="post">
-    <h1>Game: {{ game["name"] }}</h1>
-    <h2>Released: {{ game["release_date"] }}</h2>
-    <img class="container2" src="{{ game['box_art']}}" alt="{{ game['name'] }} box art">
-    <div class="deck">{{ game["deck"] }}</div>
-    <input name="game" type="hidden" value="{{ game }}">
-    <div class="platforms">
-        {% for platform in game["platforms"] %}
-        <label for="{{ platform }}">{{ platform }}</label>
-        <input type="checkbox" value="{{ platform }}" name="mycheckbox" checked>
-        {% endfor %}
-        <input type="submit" value="Add game" />
-    </div>
-</form>
+<div class="container-xl">
+    <form class="form-looks" action="/game_added" method="post">
+        <h4>Game: {{ game["name"] }}</h4>
+        <h5>Released: {{ game["release_date"] }}</h5>
+
+        <div class="game-info">
+            <img class="container2" src="{{ game['box_art']}}" alt="{{ game['name'] }} box art">
+            <div class="deck">{{ game["deck"] }}
+                <div class="platforms">
+
+                    {% for platform in game["platforms"] %}
+
+                    <label for="{{ platform }}">{{ platform }}</label>
+                    <input type="checkbox" value="{{ platform }}" name="mycheckbox" unchecked>
+
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Add game" />
+            </div>
+
+        </div>
+        <input name="game" type="hidden" value="{{ game }}">
+
+
+    </form>
+</div>
 {% endblock %}
