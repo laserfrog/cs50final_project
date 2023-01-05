@@ -1,7 +1,6 @@
 .serv ul {
     display: flex;
     flex-wrap: wrap;
-    padding-left: 0;
 }
 
 .serv ul li {
@@ -203,9 +202,10 @@ input[type="search"]::placeholder {
 }
 
 .gamelist {
-    padding: 20px;
+    padding-top: 15px;
+    padding-left: 40px;
     /* position: fixed; */
-    left: 8%;
+    /* left: 8%; */
     overflow-y: scroll;
     overflow-wrap: normal;
 

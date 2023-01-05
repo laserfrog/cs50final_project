@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, flash
 from flask_session import Session
 import json
 import requests
@@ -149,7 +149,7 @@ def game_added():
         user_id = session.get("user_id")
         db.execute(
             "INSERT INTO game_database (user_id, game_name, box_art, deck, release_date, platforms, url, how_long) VALUES(?, ?, ? ,?, ?, ?, ?, ?)", user_id, game["name"], game["box_art"], game["deck"], game["release_date"], platformsstring, game["api_detail_url"], game["how_long"])
-        message = "Game added!"
+        flash("Game added!")
         return redirect("/game_database")
 
 
@@ -204,4 +204,5 @@ def game_removed():
         id = request.form.get('game')
         print(id, sys.stdout)
         db.execute("DELETE FROM game_database WHERE id = ?", id)
+        flash("Game removed.")
         return redirect("/game_database")
